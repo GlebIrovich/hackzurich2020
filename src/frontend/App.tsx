@@ -129,7 +129,7 @@ function App() {
                     <MarkSeries animation data={data} />
                 </XYPlot>
             </Widget1>
-            <Widget2>
+            <Widget2 style={{ height: '500px' }}>
                 <WidgetComponent
                     thumb={thumb}
                     indexFinger={indexFinger}
