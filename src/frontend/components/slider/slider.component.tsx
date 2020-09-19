@@ -30,7 +30,6 @@ function SliderComponent({ value, label }: Props) {
                 color="primary"
                 style={{ width: 150, display: "block" }}
                 value={value}
-                aria-labelledby="continuous-slider"
             />
         </div>
     )

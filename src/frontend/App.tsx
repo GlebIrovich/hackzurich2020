@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react"
 import WebcamContainerComponent from "./components/webcam-container.component"
 import { Card } from "@material-ui/core"
+import intuitLogo from "./logos/intuit-bb-site.png"
+import hackZurichLogo from "./logos/hack.png"
+import logitechLogo from "./logos/Logitech_logo.svg.png"
 
 import {
     Coordinates,
@@ -25,14 +28,17 @@ const AppContainer = styled.div`
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 500px 1fr;
+    grid-template-rows: 400px 1fr 60px;
     justify-items: center;
     align-items: center;
     grid-gap: 2rem;
     padding: 2rem 3rem;
     grid-template-areas:
         "cat cat cat"
-        "video video sliders";
+        "video video sliders"
+        "footer footer footer";
+    min-height: 100vh;
+    overflow: auto;
 `
 const CatWidget = styled(Card)`
     grid-area: cat;
@@ -60,6 +66,28 @@ const SlidersSet = styled.div`
     justify-content: center;
     color: whitesmoke;
     font-weight: 600;
+`
+
+const IntuitLogo = styled.img`
+    position: absolute;
+    z-index: 10;
+    top: 92px;
+    left: 17px;
+    width: 124px;
+    transform: rotate(-90deg);
+`
+
+const FooterLogoContainer = styled.div`
+    grid-area: footer;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    width: 100%;
+`
+
+const Logo = styled.img`
+    max-height: 60px;
+    margin-left: 3rem;
 `
 
 const VideoWidgetContainer = styled(WebcamContainerComponent)`
@@ -92,7 +120,7 @@ const getValueFromCoordinates = ([x, y, z]: Coordinates) => {
 
 function App() {
     const [prediction, setPredictions] = useState<Predictions | null>(null)
-    const [isLoaded, setIsLoaded] = useState(true)
+    const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
         if (!isLoaded && prediction) {
@@ -104,7 +132,7 @@ function App() {
         throttle(
             (newPredictions: Predictions[]) =>
                 setPredictions(newPredictions[0]),
-            200
+            100
         ),
         [setPredictions]
     )
@@ -124,6 +152,7 @@ function App() {
     return (
         <AppContainer>
             {isLoaded ? null : <StyledLoader />}
+            <IntuitLogo src={intuitLogo} />
             <CatWidget>
                 <WidgetComponent
                     thumb={thumb}
@@ -151,6 +180,10 @@ function App() {
             </SlidersWidget>
 
             <VideoWidgetContainer setPredictions={addPrediction} />
+            <FooterLogoContainer>
+                <Logo src={logitechLogo} />
+                <Logo src={hackZurichLogo} />
+            </FooterLogoContainer>
         </AppContainer>
     )
 }

@@ -24,6 +24,12 @@ const WidgetContainer = styled.div`
     background: #00e7d4;
 `
 
+const StyledCat = styled(Cat)`
+    svg {
+        transition: all 200ms;
+    }
+`
+
 interface Prop extends ProcessedData {}
 
 const rescaleSize = (size: number) => {
@@ -50,7 +56,7 @@ function WidgetComponent(props: Prop) {
 
     return (
         <WidgetContainer>
-            <Cat size={size} mood="excited" color={color} />
+            <StyledCat mood="excited" color={color} size={size} />
         </WidgetContainer>
     )
 }

@@ -7,17 +7,18 @@ import { Card } from "@material-ui/core"
 
 const CanvasWrapper = styled(Card)`
     position: relative;
-    vertical-align: top;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 10px;
     background: #333333 !important;
 `
 
 const ScatterContainer = styled(Card)`
-    display: inline-block;
+    display: flex;
+    justify-content: center;
     vertical-align: top;
     width: 100%;
     height: 100%;
@@ -28,9 +29,13 @@ const Video = styled.video`
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
     visibility: hidden;
+    height: 250px;
     width: auto;
-    height: auto;
     position: absolute;
+`
+
+const Canvas = styled.canvas`
+    height: 250px;
 `
 
 interface Props {
@@ -55,9 +60,8 @@ function WebcamContainerComponent({ setPredictions }: Props) {
     return (
         <React.Fragment>
             <CanvasWrapper>
-                {/*<Webcam ref={videoRef as any} />*/}
                 <Video id="video" ref={videoRef} />
-                <canvas id="output" ref={canvasRef} />
+                <Canvas id="output" ref={canvasRef} />
             </CanvasWrapper>
             <ScatterContainer
                 id="scatter-gl-container"

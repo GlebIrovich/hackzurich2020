@@ -25,7 +25,7 @@ let videoWidth,
         pinky: [0, 17, 18, 19, 20],
     } // for rendering each finger as a polyline
 
-const VIDEO_WIDTH = 350
+const VIDEO_WIDTH = 300
 const VIDEO_HEIGHT = 250
 const mobile = isMobile()
 // Don't render the point cloud on mobile in order to maximize performance and
