@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useState } from "react"
 import WebcamContainerComponent from "./components/webcam-container.component"
 import { Card } from "@material-ui/core"
 import intuitLogo from "./logos/intuit-bb-site.png"
@@ -122,19 +122,14 @@ function App() {
     const [prediction, setPredictions] = useState<Predictions | null>(null)
     const [isLoaded, setIsLoaded] = useState(false)
 
-    useEffect(() => {
-        if (!isLoaded && prediction) {
-            setIsLoaded(true)
-        }
-    }, [isLoaded, prediction])
-
     const addPrediction = useCallback(
-        throttle(
-            (newPredictions: Predictions[]) =>
-                setPredictions(newPredictions[0]),
-            100
-        ),
-        [setPredictions]
+        throttle((newPredictions: Predictions[]) => {
+            setPredictions(newPredictions[0])
+            if (!isLoaded) {
+                setIsLoaded(true)
+            }
+        }, 100),
+        [setPredictions, setIsLoaded]
     )
 
     const getDataByType = (type: FingerType) =>
