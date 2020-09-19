@@ -6,7 +6,7 @@ import { detectHandpose } from "../core/handpose"
 import { Predictions } from "../core/predictions.interface"
 
 interface Props {
-    setPredictions: (predictions: Predictions) => void
+    setPredictions: (predictions: Predictions[]) => void
 }
 
 function WebcamContainerComponent({ setPredictions }: Props) {
