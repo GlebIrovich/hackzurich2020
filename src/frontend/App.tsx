@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
 import WebcamContainerComponent from "./components/webcam-container.component"
-import Slider from "@material-ui/core/Slider"
 import {
     Coordinates,
     FingerType,
@@ -8,6 +7,8 @@ import {
 } from "./core/predictions.interface"
 import LoaderComponent from "./components/loader/loader.component"
 import styled from "styled-components"
+import WidgetComponent from "./components/widget/widget.component"
+import SliderComponent from "./components/slider/slider.component"
 
 const StyledLoader = styled(LoaderComponent)`
     background: #00e7d4;
@@ -20,6 +21,24 @@ const StyledLoader = styled(LoaderComponent)`
 
 const AppContainer = styled.div`
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "widget1 widget2"
+        "video video";
+`
+
+const Widget2 = styled.div`
+    grid-area: widget2;
+    position: relative;
+    display: flex;
+    padding: 3rem;
+    justify-content: space-between;
+    box-sizing: border-box;
+`
+
+const VideoWidgetContainer = styled(WebcamContainerComponent)`
+    grid-area: video;
 `
 
 function throttle(callback: (param: any) => void, timeout: number) {
@@ -81,40 +100,29 @@ function App() {
         <AppContainer>
             {isLoaded ? null : <StyledLoader />}
 
-            <div>
-                <Slider
-                    style={{ width: 200, display: "block" }}
-                    value={thumb}
-                    aria-labelledby="continuous-slider"
+            <Widget2>
+                <WidgetComponent
+                    thumb={thumb}
+                    indexFinger={indexFinger}
+                    middleFinger={middleFinger}
+                    ringFinger={ringFinger}
+                    pinkyFinger={pinkyFinger}
+                    palmBase={palmBase}
                 />
-                <Slider
-                    style={{ width: 200, display: "block" }}
-                    value={indexFinger}
-                    aria-labelledby="continuous-slider"
-                />
-                <Slider
-                    style={{ width: 200, display: "block" }}
-                    value={middleFinger}
-                    aria-labelledby="continuous-slider"
-                />
-                <Slider
-                    style={{ width: 200, display: "block" }}
-                    value={ringFinger}
-                    aria-labelledby="continuous-slider"
-                />
-                <Slider
-                    style={{ width: 200, display: "block" }}
-                    value={pinkyFinger}
-                    aria-labelledby="continuous-slider"
-                />
-                <Slider
-                    style={{ width: 200, display: "block" }}
-                    value={palmBase}
-                    aria-labelledby="continuous-slider"
-                />
-            </div>
+                <div>
+                    <SliderComponent value={thumb} label="Thumb" />
+                    <SliderComponent value={indexFinger} label="Index finger" />
+                    <SliderComponent
+                        value={middleFinger}
+                        label="Middle finger"
+                    />
+                    <SliderComponent value={ringFinger} label="Ring Finger" />
+                    <SliderComponent value={pinkyFinger} label="Pinky" />
+                    <SliderComponent value={palmBase} label="Palm base" />
+                </div>
+            </Widget2>
 
-            <WebcamContainerComponent setPredictions={addPrediction} />
+            <VideoWidgetContainer setPredictions={addPrediction} />
         </AppContainer>
     )
 }
