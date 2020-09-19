@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import "./App.css"
 import WebcamContainerComponent from "./components/webcam-container.component"
 import { Predictions } from "./core/predictions.interface"
 
