@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react"
+import React, { useEffect, useRef } from "react"
 // @ts-ignore
 import { Predictions } from "../core/predictions.interface"
 import { main } from "../core/visualizerV2"

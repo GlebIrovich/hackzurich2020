@@ -2,8 +2,6 @@
 import * as handpose from "@tensorflow-models/handpose"
 import * as tf from "@tensorflow/tfjs-core"
 import "@tensorflow/tfjs-backend-webgl"
-// import { ScatterGL } from "scatter-gl"
-// import * as dat from "dat.gui"
 
 function isMobile() {
     const isAndroid = /Android/i.test(navigator.userAgent)
@@ -114,7 +112,7 @@ async function loadVideo() {
     return video
 }
 
-export async function main(setPredictions) {
+export async function main(setPredictions, isPaused) {
     await tf.setBackend(state.backend)
     model = await handpose.load()
     let video
