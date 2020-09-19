@@ -43,22 +43,31 @@ function LoaderComponent({ className }: Props) {
             <div className="credits-info">
                 <p>
                     Source on{" "}
-                    <a href="http://drbl.in/1945392" target="_blank">
+                    <a
+                        href="http://drbl.in/1945392"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
                         Dribbble
                     </a>
                     .
                 </p>
                 <p>
-                    <a href="https://twitter.com/r4ms3scz" target="_blank">
+                    <a
+                        href="https://twitter.com/r4ms3scz"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
                         @r4ms3scz
                     </a>{" "}
                     <span>x</span>{" "}
-                    <a href="https://twitter.com/ToshTak" target="_blank">
+                    <a
+                        href="https://twitter.com/ToshTak"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
                         @ToshTak
                     </a>
-                </p>
-                <p>
-                    <a href="" />
                 </p>
             </div>
         </div>
