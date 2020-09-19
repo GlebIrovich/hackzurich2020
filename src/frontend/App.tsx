@@ -10,11 +10,9 @@ import {
 function throttle(callback: (param: any) => void, timeout: number) {
     let shouldThrottle = false
     return function (param: any) {
-        console.log(shouldThrottle)
         if (!shouldThrottle) {
             callback(param)
             shouldThrottle = true
-            console.log(shouldThrottle)
             setTimeout(function () {
                 shouldThrottle = false
             }, timeout)
@@ -40,7 +38,7 @@ function App() {
         throttle(
             (newPredictions: Predictions[]) =>
                 setPredictions(newPredictions[0]),
-            1000
+            200
         ),
         [setPredictions]
     )
@@ -49,7 +47,6 @@ function App() {
         prediction
             ? getValueFromCoordinates(prediction.annotations[type][0])
             : 0
-    console.log(prediction)
 
     const thumb = getDataByType("thumb")
     const indexFinger = getDataByType("indexFinger")
@@ -61,8 +58,6 @@ function App() {
     return (
         <div className="App">
             <h1>{prediction ? "Ready" : "Warming up, please stand by"}</h1>
-
-            <p>{JSON.stringify(prediction)}</p>
 
             <div style={{ padding: "50px" }}>
                 <p>{thumb}</p>

@@ -33,11 +33,6 @@ function WebcamContainerComponent({ setPredictions }: Props) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const scatterContainerRef = useRef<HTMLDivElement | null>(null)
 
-    const pause = useCallback(
-        () => videoRef?.current && videoRef?.current.pause(),
-        [videoRef]
-    )
-
     useEffect(() => {
         const videoElement = videoRef?.current
         const canvas = canvasRef?.current
@@ -59,8 +54,6 @@ function WebcamContainerComponent({ setPredictions }: Props) {
                 id="scatter-gl-container"
                 ref={scatterContainerRef}
             />
-
-            <button onChange={pause}>Pause</button>
         </React.Fragment>
     )
 }
