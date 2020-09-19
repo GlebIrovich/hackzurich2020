@@ -111,7 +111,7 @@ const getValueFromCoordinates = ([x, y, z]: Coordinates) => {
     const t =
         (x + 1000 + 2001 * (y + 1000) + 2001 * 2001 * (z + 1000)) /
         (2001 * 2001 * 2001 - 1)
-    const S = (x: Number) => 1 / (1 + Math.exp(-x))
+    const S = (x: number) => 1 / (1 + Math.exp(-x))
     const scale = 180
     const w =
         (S(scale * (t - 0.5)) - S(-scale / 2)) / (S(scale / 2) - S(-scale / 2))

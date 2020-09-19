@@ -149,10 +149,6 @@ export async function main(setPredictions) {
     ]
 
     if (renderPointcloud) {
-        // document.querySelector(
-        //     "#scatter-gl-container"
-        // ).style = `width: ${VIDEO_WIDTH}px; height: ${VIDEO_HEIGHT}px;`
-
         scatterGL = new ScatterGL(
             document.querySelector("#scatter-gl-container"),
             {
@@ -209,7 +205,7 @@ const landmarksRealTime = async (video, setPredictions) => {
                     )
                     scatterGL.setPointColorer((index) => {
                         if (index < pointsData.length) {
-                            return "steelblue"
+                            return "#00e7d4"
                         }
                         return "white" // Hide.
                     })
