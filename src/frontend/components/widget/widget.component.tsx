@@ -11,28 +11,17 @@ export interface ProcessedData {
     palmBase: number
 }
 
-const StyledInfoWidget = styled.div`
-    font-size: 20px;
-    color: ${(props: any) => props.color};
-`
-
 const WidgetContainer = styled.div`
     display: flex;
-    flex-direction: column;
     align-content: center;
     justify-content: center;
     width: 100%;
-    padding-right: 2rem;
     box-sizing: border-box;
-`
-
-const CatContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    position: relative;
     overflow: hidden;
-    justify-content: center;
+    height: 100%;
+    align-items: center;
+    padding: 1rem;
+    background: #00e7d4;
 `
 
 interface Prop extends ProcessedData {}
@@ -61,11 +50,7 @@ function WidgetComponent(props: Prop) {
 
     return (
         <WidgetContainer>
-            <StyledInfoWidget>Size: {size}px</StyledInfoWidget>
-            <StyledInfoWidget color={color}>Color: {color}</StyledInfoWidget>
-            <CatContainer>
-                <Cat size={size} mood="excited" color={color} />
-            </CatContainer>
+            <Cat size={size} mood="excited" color={color} />
         </WidgetContainer>
     )
 }

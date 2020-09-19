@@ -3,16 +3,25 @@ import React, { useEffect, useRef } from "react"
 import { Predictions } from "../core/predictions.interface"
 import { main } from "../core/visualizerV2"
 import styled from "styled-components"
+import { Card } from "@material-ui/core"
 
-const CanvasWrapper = styled.div`
+const CanvasWrapper = styled(Card)`
     position: relative;
-    display: inline-block;
     vertical-align: top;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background: #333333 !important;
 `
 
-const ScatterContainer = styled.div`
+const ScatterContainer = styled(Card)`
     display: inline-block;
     vertical-align: top;
+    width: 100%;
+    height: 100%;
+    background: rgb(219, 219, 219) !important;
 `
 
 const Video = styled.video`

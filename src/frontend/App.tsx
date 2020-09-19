@@ -1,12 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react"
 import WebcamContainerComponent from "./components/webcam-container.component"
-import {
-    XYPlot,
-    MarkSeries,
-    HorizontalGridLines,
-    VerticalGridLines,
-} from "react-vis"
-import "../../node_modules/react-vis/dist/style.css"
+import { Card } from "@material-ui/core"
 
 import {
     Coordinates,
@@ -30,25 +24,42 @@ const StyledLoader = styled(LoaderComponent)`
 const AppContainer = styled.div`
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 500px 1fr;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 2rem;
+    padding: 2rem 3rem;
     grid-template-areas:
-        "widget1 widget2"
-        "video video";
+        "cat cat cat"
+        "video video sliders";
 `
-const Widget1 = styled.div`
-    grid-area: widget1;
+const CatWidget = styled(Card)`
+    grid-area: cat;
     position: relative;
-    padding: 3rem;
     box-sizing: border-box;
+    width: 100%;
+    height: 100%;
 `
 
-const Widget2 = styled.div`
-    grid-area: widget2;
+const SlidersWidget = styled(Card)`
+    grid-area: sliders;
     position: relative;
     display: flex;
-    padding: 3rem;
-    justify-content: space-between;
     box-sizing: border-box;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    background: #333333 !important;
+`
+
+const SlidersSet = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: whitesmoke;
+    font-weight: 600;
 `
 
 const VideoWidgetContainer = styled(WebcamContainerComponent)`
@@ -81,7 +92,7 @@ const getValueFromCoordinates = ([x, y, z]: Coordinates) => {
 
 function App() {
     const [prediction, setPredictions] = useState<Predictions | null>(null)
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [isLoaded, setIsLoaded] = useState(true)
 
     useEffect(() => {
         if (!isLoaded && prediction) {
@@ -110,26 +121,10 @@ function App() {
     const pinkyFinger = getDataByType("pinky")
     const palmBase = getDataByType("palmBase")
 
-    const data = [
-        { x: 0, y: getDataByType("thumb") / 10 },
-        { x: 1, y: getDataByType("indexFinger") / 10 },
-        { x: 2, y: getDataByType("middleFinger") / 10 },
-        { x: 3, y: getDataByType("ringFinger") / 10 },
-        { x: 4, y: getDataByType("pinky") / 10 },
-        { x: 5, y: getDataByType("palmBase") / 10 },
-    ]
-
     return (
         <AppContainer>
             {isLoaded ? null : <StyledLoader />}
-            <Widget1>
-                <XYPlot height={300} width={300}>
-                    <VerticalGridLines />
-                    <HorizontalGridLines />
-                    <MarkSeries animation data={data} />
-                </XYPlot>
-            </Widget1>
-            <Widget2 style={{ height: '500px' }}>
+            <CatWidget>
                 <WidgetComponent
                     thumb={thumb}
                     indexFinger={indexFinger}
@@ -138,18 +133,22 @@ function App() {
                     pinkyFinger={pinkyFinger}
                     palmBase={palmBase}
                 />
-                <div>
+            </CatWidget>
+            <SlidersWidget>
+                <SlidersSet>
                     <SliderComponent value={thumb} label="Thumb" />
                     <SliderComponent value={indexFinger} label="Index finger" />
                     <SliderComponent
                         value={middleFinger}
                         label="Middle finger"
                     />
+                </SlidersSet>
+                <SlidersSet>
                     <SliderComponent value={ringFinger} label="Ring Finger" />
                     <SliderComponent value={pinkyFinger} label="Pinky" />
                     <SliderComponent value={palmBase} label="Palm base" />
-                </div>
-            </Widget2>
+                </SlidersSet>
+            </SlidersWidget>
 
             <VideoWidgetContainer setPredictions={addPrediction} />
         </AppContainer>

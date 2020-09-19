@@ -25,8 +25,8 @@ let videoWidth,
         pinky: [0, 17, 18, 19, 20],
     } // for rendering each finger as a polyline
 
-const VIDEO_WIDTH = 640
-const VIDEO_HEIGHT = 500
+const VIDEO_WIDTH = 350
+const VIDEO_HEIGHT = 250
 const mobile = isMobile()
 // Don't render the point cloud on mobile in order to maximize performance and
 // to avoid crowding limited screen space.
@@ -112,7 +112,7 @@ async function loadVideo() {
     return video
 }
 
-export async function main(setPredictions, isPaused) {
+export async function main(setPredictions) {
     await tf.setBackend(state.backend)
     model = await handpose.load()
     let video
@@ -149,13 +149,19 @@ export async function main(setPredictions, isPaused) {
     ]
 
     if (renderPointcloud) {
-        document.querySelector(
-            "#scatter-gl-container"
-        ).style = `width: ${VIDEO_WIDTH}px; height: ${VIDEO_HEIGHT}px;`
+        // document.querySelector(
+        //     "#scatter-gl-container"
+        // ).style = `width: ${VIDEO_WIDTH}px; height: ${VIDEO_HEIGHT}px;`
 
         scatterGL = new ScatterGL(
             document.querySelector("#scatter-gl-container"),
-            { rotateOnStart: false, selectEnabled: false }
+            {
+                rotateOnStart: false,
+                selectEnabled: false,
+                styles: {
+                    backgroundColor: "rgb(219, 219, 219)",
+                },
+            }
         )
     }
 
