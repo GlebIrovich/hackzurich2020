@@ -11,9 +11,5 @@ COPY . .
 RUN echo "Building UI"
 RUN yarn build
 
-RUN echo "Installing server dependencies"
-RUN pip install -r requirements.txt
-
-
 EXPOSE 8080
-CMD ["python", "./src/server/app.py"]
+CMD ["yarn", "prod:server"]
