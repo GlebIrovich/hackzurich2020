@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import WebcamContainerComponent from "./components/webcam-container.component"
 import Slider from "@material-ui/core/Slider"
 import {
@@ -6,6 +6,21 @@ import {
     FingerType,
     Predictions,
 } from "./core/predictions.interface"
+import LoaderComponent from "./components/loader/loader.component"
+import styled from "styled-components"
+
+const StyledLoader = styled(LoaderComponent)`
+    background: #00e7d4;
+    position: absolute;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+`
+
+const AppContainer = styled.div`
+    position: relative;
+`
 
 function throttle(callback: (param: any) => void, timeout: number) {
     let shouldThrottle = false
@@ -33,6 +48,13 @@ const getValueFromCoordinates = ([x, y, z]: Coordinates) => {
 
 function App() {
     const [prediction, setPredictions] = useState<Predictions | null>(null)
+    const [isLoaded, setIsLoaded] = useState(false)
+
+    useEffect(() => {
+        if (!isLoaded && prediction) {
+            setIsLoaded(true)
+        }
+    }, [isLoaded, prediction])
 
     const addPrediction = useCallback(
         throttle(
@@ -56,17 +78,10 @@ function App() {
     const palmBase = getDataByType("palmBase")
 
     return (
-        <div className="App">
-            <h1>{prediction ? "Ready" : "Warming up, please stand by"}</h1>
+        <AppContainer>
+            {isLoaded ? null : <StyledLoader />}
 
-            <div style={{ padding: "50px" }}>
-                <p>{thumb}</p>
-                <p>{indexFinger}</p>
-                <p>{middleFinger}</p>
-                <p>{ringFinger}</p>
-                <p>{pinkyFinger}</p>
-                <p>{palmBase}</p>
-
+            <div>
                 <Slider
                     style={{ width: 200, display: "block" }}
                     value={thumb}
@@ -100,7 +115,7 @@ function App() {
             </div>
 
             <WebcamContainerComponent setPredictions={addPrediction} />
-        </div>
+        </AppContainer>
     )
 }
 
