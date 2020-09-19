@@ -1,16 +1,14 @@
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import WebcamContainerComponent from "./components/webcam-container.component"
 import { Predictions } from "./core/predictions.interface"
-import { mockDataGenerator } from "./services/mock-data/mock-data.service"
 
 function App() {
-    const [predictions, setPredictions] = useState<Predictions[]>([])
+    const [predictions, setPredictions] = useState<Predictions | null>(null)
 
-    const addPrediction = (predictions: Predictions[]) =>
-        setPredictions((state) => state.concat(predictions))
-    console.log(predictions)
-
-    console.log(mockDataGenerator.next().value)
+    const addPrediction = useCallback(
+        (newPredictions: Predictions[]) => setPredictions(newPredictions[0]),
+        []
+    )
 
     return (
         <div className="App">
