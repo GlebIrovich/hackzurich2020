@@ -1,7 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react"
 import WebcamContainerComponent from "./components/webcam-container.component"
-import {XYPlot, MarkSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis} from 'react-vis'
-import '../../node_modules/react-vis/dist/style.css';
+import {
+    XYPlot,
+    MarkSeries,
+    HorizontalGridLines,
+    VerticalGridLines,
+} from "react-vis"
+import "../../node_modules/react-vis/dist/style.css"
 
 import {
     Coordinates,
@@ -29,6 +34,12 @@ const AppContainer = styled.div`
     grid-template-areas:
         "widget1 widget2"
         "video video";
+`
+const Widget1 = styled.div`
+    grid-area: widget1;
+    position: relative;
+    padding: 3rem;
+    box-sizing: border-box;
 `
 
 const Widget2 = styled.div`
@@ -100,22 +111,24 @@ function App() {
     const palmBase = getDataByType("palmBase")
 
     const data = [
-        {x: 0, y: getDataByType("thumb") / 10 },
-        {x: 1, y: getDataByType("indexFinger") / 10 },
-        {x: 2, y: getDataByType("middleFinger") / 10 },
-        {x: 3, y: getDataByType("ringFinger") / 10 },
-        {x: 4, y: getDataByType("pinky") / 10 },
-        {x: 5, y: getDataByType("palmBase") / 10 },
-      ];
+        { x: 0, y: getDataByType("thumb") / 10 },
+        { x: 1, y: getDataByType("indexFinger") / 10 },
+        { x: 2, y: getDataByType("middleFinger") / 10 },
+        { x: 3, y: getDataByType("ringFinger") / 10 },
+        { x: 4, y: getDataByType("pinky") / 10 },
+        { x: 5, y: getDataByType("palmBase") / 10 },
+    ]
 
     return (
         <AppContainer>
             {isLoaded ? null : <StyledLoader />}
-            <XYPlot height={300} width= {300}>
-                <VerticalGridLines />
-                <HorizontalGridLines />
-                <MarkSeries animation data={data} />
-            </XYPlot>
+            <Widget1>
+                <XYPlot height={300} width={300}>
+                    <VerticalGridLines />
+                    <HorizontalGridLines />
+                    <MarkSeries animation data={data} />
+                </XYPlot>
+            </Widget1>
             <Widget2>
                 <WidgetComponent
                     thumb={thumb}
