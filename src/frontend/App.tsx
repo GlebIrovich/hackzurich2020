@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react"
 import WebcamContainerComponent from "./components/webcam-container.component"
 import Slider from "@material-ui/core/Slider"
+import {XYPlot, MarkSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis} from 'react-vis'
+import '../../node_modules/react-vis/dist/style.css';
+
 import {
     Coordinates,
     FingerType,
@@ -77,9 +80,24 @@ function App() {
     const pinkyFinger = getDataByType("pinky")
     const palmBase = getDataByType("palmBase")
 
+    const data = [
+        {x: 0, y: getDataByType("thumb") / 10 },
+        {x: 1, y: getDataByType("indexFinger") / 10 },
+        {x: 2, y: getDataByType("middleFinger") / 10 },
+        {x: 3, y: getDataByType("ringFinger") / 10 },
+        {x: 4, y: getDataByType("pinky") / 10 },
+        {x: 5, y: getDataByType("palmBase") / 10 },
+      ];
+
     return (
         <AppContainer>
             {isLoaded ? null : <StyledLoader />}
+
+            <XYPlot height={300} width= {300}>
+                <VerticalGridLines />
+                <HorizontalGridLines />
+                <MarkSeries animation data={data} />
+            </XYPlot>
 
             <div>
                 <Slider
